@@ -1,0 +1,65 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; /* Evita el scroll normal del navegador */
+    background-color: #000; /* Fondo negro para que resalte */
+    color: white;
+    font-family: 'Arial', sans-serif;
+    background: radial-gradient(circle at center, #111 0%, #000 100%);
+}
+
+.zoom-container {
+    perspective: 450px; 
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.escenario {
+    position: relative;
+    transform-style: preserve-3d; /* Permite que los hijos sean 3D */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.capa {
+    position: absolute;
+    font-size: 8rem; /* Letras base mucho más grandes */
+    font-weight: 900;
+    text-transform: uppercase;
+    color: white;
+    /* Sombras de neón suaves para que no se vea feo al agrandar */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 
+                 0 0 20px rgba(255, 255, 255, 0.3);
+    
+    /* El transform se calcula con la variable --depth y la distancia de 4000px */
+    transform: translateZ(calc(var(--depth) * -6000px));
+    
+    /* Transiciones muy cortas y suaves para la opacidad */
+    transition: opacity 0.1s linear, filter 0.1s linear;
+    will-change: transform, opacity;
+}
+
+/* Colores alternados usando nth-child */
+.capa:nth-child(4n+1) { color: #ff0055; text-shadow: 0 0 20px #ff0055; } /* Neón Rosa */
+.capa:nth-child(4n+2) { color: #00fbff; text-shadow: 0 0 20px #00fbff; } /* Neón Cian */
+.capa:nth-child(4n+3) { color: #adff2f; text-shadow: 0 0 20px #adff2f; } /* Neón Verde */
+.capa:nth-child(4n+4) { color: #ffff00; text-shadow: 0 0 20px #ffff00; } /* Neón Amarillo */
+
+/* Efecto de desvanecimiento cuando se acercan mucho */
+.capa {
+    will-change: transform, opacity;
+}
+/* Esto ajusta el tamaño solo en pantallas pequeñas */
+@media (max-width: 600px) {
+    .capa {
+        font-size: 3rem; /* Letra más pequeña para el cel */
+    }
+}
